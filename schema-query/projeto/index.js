@@ -16,7 +16,7 @@ const resolvers = {
             return 'Ola mundo!'
         },
         horaAtual() {
-            
+            return new Date()
         }
     }
 }
