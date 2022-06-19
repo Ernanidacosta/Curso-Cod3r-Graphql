@@ -1,9 +1,12 @@
 const { ApolloServer, gql } = require('apollo-server');
 
 const typeDefs = gql`
+    scalar Date
+
     # Entry point into the GraphQL API
     type Query {
         ola: String
+        horaAtual: Date
     }
 `
 
@@ -12,6 +15,9 @@ const resolvers = {
         ola() {
             return 'Ola mundo!'
         },
+        horaAtual() {
+            return new Date()
+        }
     }
 }
 
