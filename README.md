@@ -1,1 +1,1 @@
-# Repo do Curso da Cod3r de Graphql
+# *Repo do Curso da Cod3r de Graphql*
