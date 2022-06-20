@@ -14,13 +14,20 @@ const typeDefs = gql`
 
     # Entry point into the GraphQL API
     type Query {
-        ola: String
-        dataHoraAtual: Date
+        ola: String!
+        dataHoraAtual: Date!
         usuarioLogado: Usuario
     }
 `
 
 const resolvers = {
+    Usuario: {
+        salario(usuario) {
+             return usuario.salario_real
+        }
+    },
+
+    
     Query: {
         ola() {
             return 'Ola mundo!'
@@ -34,7 +41,7 @@ const resolvers = {
                 nome: 'Maria',
                 email: 'maria@email.com',
                 idade: 30,
-                salario: 3000.99,
+                salario_real: 3000.99,
                 vip: true
             }
         }
