@@ -1,5 +1,25 @@
 const { ApolloServer, gql } = require('apollo-server');
 
+const usuarios = [{
+    id: 1,
+    nome: 'João',
+    email: 'joao@email.com',
+    idade: 20
+},
+{
+    id: 2,
+    nome: 'Maria',
+    email: 'maria@mail.com',
+    idade: 30
+},
+{
+    id: 3,
+    nome: 'Pedro',
+    email: 'pedro@mail.com',
+    idade: 40
+}
+];
+
 const typeDefs = gql`
     scalar Date
 
@@ -27,6 +47,7 @@ const typeDefs = gql`
         usuarioLogado: Usuario
         produtoDestaque: Produto
         numerosMegaSena: [Int!]!
+        usuarios: [Usuario]
     }
 `
 
@@ -76,8 +97,11 @@ const resolvers = {
         numerosMegaSena() {
             const crescente = (a, b) => a - b
             return Array(6).fill(0)
-                .map(n => parseInt(Math.random() * 60 + 1 ))
+                .map(n => parseInt(Math.random() * 60 + 1))
                 .sort(crescente)
+        },
+        usuarios() {
+            return usuarios
         }
     }
 }
