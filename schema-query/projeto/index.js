@@ -23,6 +23,18 @@ const usuarios = [{
 const typeDefs = gql`
     scalar Date
 
+
+    # Entry point into the GraphQL API
+    type Query {
+        ola: String!
+        dataHoraAtual: Date!
+        usuarioLogado: Usuario
+        produtoDestaque: Produto
+        numerosMegaSena: [Int!]!
+        usuarios: [Usuario]
+        usuario(id: ID): Usuario
+    }
+
     type Usuario {
         id: ID!
         nome: String!
@@ -40,15 +52,6 @@ const typeDefs = gql`
         precoComDesconto: Float
     }
 
-    # Entry point into the GraphQL API
-    type Query {
-        ola: String!
-        dataHoraAtual: Date!
-        usuarioLogado: Usuario
-        produtoDestaque: Produto
-        numerosMegaSena: [Int!]!
-        usuarios: [Usuario]
-    }
 `
 
 const resolvers = {
@@ -67,7 +70,6 @@ const resolvers = {
             }
         }
     },
-
 
     Query: {
         ola() {
@@ -102,16 +104,22 @@ const resolvers = {
         },
         usuarios() {
             return usuarios
-        }
+        },
+        usuario(_, args) {
+            const selecionados = usuarios
+                .filter(usuario => usuario.id == args.id)
+            return selecionados ? selecionados[0] : null
+        },
+
     }
 }
 
 const server = new ApolloServer({
-    typeDefs,
-    resolvers
-})
+        typeDefs,
+        resolvers
+    })
 
 server.listen().then(({ url }) => {
-    console.log(`Server ready at ${url}`);
-})
+        console.log(`Server ready at ${url}`);
+    })
 
